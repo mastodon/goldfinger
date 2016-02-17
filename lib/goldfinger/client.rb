@@ -10,9 +10,23 @@ module Goldfinger
     end
 
     def finger
-      _, template   = perform_get(url)
+      ssl = true
+
+      begin
+        _, template   = perform_get(url(ssl))
+      rescue HTTP::Error
+        if ssl
+          ssl = false
+          retry
+        else
+          raise Goldfinger::Error::NotFound
+        end
+      end
+
       headers, body = perform_get(url_from_template(template))
       Goldfinger::Result.new(headers, body)
+    rescue HTTP::Error
+      raise Goldfinger::Error::NotFound
     end
 
     private
