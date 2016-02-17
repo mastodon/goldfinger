@@ -29,12 +29,13 @@ module Goldfinger
 
     def parse_json
       json = JSON.parse(@body)
-      json['links'].each { |link| @links[link['rel']] = link['href'] }
+      json['links'].each { |link| @links[link['rel']] = Hash[link.keys.map { |key| [key.to_sym, link[key]] }] }
     end
 
     def parse_xml
       xml = Nokogiri::XML(@body)
-      xml.xpath('//xmlns:Link', xmlns: 'http://docs.oasis-open.org/ns/xri/xrd-1.0').each { |link| @links[link.attribute('rel').value] = link.attribute('href').value }
+      links = xml.xpath('//xmlns:Link', xmlns: 'http://docs.oasis-open.org/ns/xri/xrd-1.0')
+      links.each { |link| @links[link.attribute('rel').value] = Hash[link.attributes.keys.map { |key| [key.to_sym, link.attribute(key).value] }] }
     end
   end
 end

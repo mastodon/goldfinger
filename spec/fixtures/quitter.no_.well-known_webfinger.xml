@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
+ <Subject>acct:gargron@quitter.no</Subject>
+ <Alias>https://quitter.no/user/7477</Alias>
+ <Alias>https://quitter.no/gargron</Alias>
+ <Link rel="http://webfinger.net/rel/profile-page" type="text/html" href="https://quitter.no/gargron"/>
+ <Link rel="http://gmpg.org/xfn/11" type="text/html" href="https://quitter.no/gargron"/>
+ <Link rel="describedby" type="application/rdf+xml" href="https://quitter.no/gargron/foaf"/>
+ <Link rel="http://apinamespace.org/atom" type="application/atomsvc+xml" href="https://quitter.no/api/statusnet/app/service/gargron.xml"/>
+ <Link rel="http://apinamespace.org/twitter" href="https://quitter.no/api/"/>
+ <Link rel="http://specs.openid.net/auth/2.0/provider" href="https://quitter.no/gargron"/>
+ <Link rel="http://schemas.google.com/g/2010#updates-from" type="application/atom+xml" href="https://quitter.no/api/statuses/user_timeline/7477.atom"/>
+ <Link rel="magic-public-key" href="data:application/magic-public-key,RSA.1ZBkHTavLvxH3FzlKv4O6WtlILKRFfNami3_Rcu8EuogtXSYiS-bB6hElZfUCSHbC4uLemOA34PEhz__CDMozax1iI_t8dzjDnh1x0iFSup7pSfW9iXk_WU3Dm74yWWW2jildY41vWgrEstuQ1dJ8vVFfSJ9T_tO4c-T9y8vDI8=.AQAB"/>
+ <Link rel="salmon" href="https://quitter.no/main/salmon/user/7477"/>
+ <Link rel="http://salmon-protocol.org/ns/salmon-replies" href="https://quitter.no/main/salmon/user/7477"/>
+ <Link rel="http://salmon-protocol.org/ns/salmon-mention" href="https://quitter.no/main/salmon/user/7477"/>
+ <Link rel="http://ostatus.org/schema/1.0/subscribe" template="https://quitter.no/main/ostatussub?profile={uri}"/>
+</XRD>

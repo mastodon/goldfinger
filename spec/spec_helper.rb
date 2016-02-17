@@ -1,5 +1,6 @@
 require 'goldfinger'
 require 'webmock/rspec'
+require 'pry'
 
 WebMock.disable_net_connect!
 
@@ -13,4 +14,12 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+end
+
+def fixture_path(path)
+  File.join(File.expand_path('../fixtures', __FILE__), path)
+end
+
+def fixture(path)
+  File.new(fixture_path(path))
 end
