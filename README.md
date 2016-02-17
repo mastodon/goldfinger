@@ -5,7 +5,7 @@ Goldfinger, a Webfinger client for Ruby
 
 [gem]: https://rubygems.org/gems/goldfinger
 
-A Webfinger client for Ruby. Supports `application/xrd+xml` and `application/jrd+json` responses. Raises `Goldfinger::Error::NotFound` on failure to fetch the Webfinger or XRD data.
+A Webfinger client for Ruby. Supports `application/xrd+xml` and `application/jrd+json` responses. Raises `Goldfinger::NotFoundError` on failure to fetch the Webfinger or XRD data, or `Goldfinger::SSLError` if something is wrong with the HTTPS connection it uses.
 
 ## Installation
 

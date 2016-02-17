@@ -4,9 +4,13 @@ require 'goldfinger/utils'
 require 'goldfinger/client'
 
 module Goldfinger
-  module Error
-    class NotFound < StandardError
-    end
+  class Error < StandardError
+  end
+
+  class NotFoundError < Error
+  end
+
+  class SSLError < Error
   end
 
   def self.finger(uri)

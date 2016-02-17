@@ -19,14 +19,16 @@ module Goldfinger
           ssl = false
           retry
         else
-          raise Goldfinger::Error::NotFound
+          raise Goldfinger::NotFoundError
         end
       end
 
       headers, body = perform_get(url_from_template(template))
       Goldfinger::Result.new(headers, body)
     rescue HTTP::Error
-      raise Goldfinger::Error::NotFound
+      raise Goldfinger::NotFoundError
+    rescue OpenSSL::SSL::SSLError
+      raise Goldfinger::SSLError
     end
 
     private
@@ -39,7 +41,7 @@ module Goldfinger
       xml   = Nokogiri::XML(template)
       links = xml.xpath('//xmlns:Link[@rel="lrdd"]', xmlns: 'http://docs.oasis-open.org/ns/xri/xrd-1.0')
 
-      raise Goldfinger::Error::NotFound if links.empty?
+      raise Goldfinger::NotFoundError if links.empty?
 
       url = Addressable::Template.new(links.first.attribute('template').value)
       url.expand({ uri: @uri }).to_s

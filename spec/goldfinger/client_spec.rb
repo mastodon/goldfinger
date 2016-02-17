@@ -40,7 +40,7 @@ describe Goldfinger::Client do
       subject { Goldfinger::Client.new('acct:gargron@quitter.no') }
 
       it 'raises an error' do
-        expect {subject.finger }.to raise_error(Goldfinger::Error::NotFound)
+        expect {subject.finger }.to raise_error(Goldfinger::NotFoundError)
       end
     end
   end
