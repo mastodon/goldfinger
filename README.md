@@ -14,9 +14,16 @@ A Webfinger client for Ruby. Supports `application/xrd+xml` and `application/jrd
 ## Usage
 
     data = Goldfinger.finger('acct:gargron@quitter.no')
-    data.link('http://schemas.google.com/g/2010#updates-from')[:href]
+
+    data.link('http://schemas.google.com/g/2010#updates-from').href
     # => "https://quitter.no/api/statuses/user_timeline/7477.atom"
+
+    data.aliases
+    # => ["https://quitter.no/user/7477", "https://quitter.no/gargron"]
+
+    data.subject
+    # => "acct:gargron@quitter.no"
 
 ## RFC support
 
-The gem only parses link data. It does not currently parse aliases, properties, or more complex structures.
+The official Webfinger RFC is [7033](https://tools.ietf.org/html/rfc7033).

@@ -39,7 +39,7 @@ module Goldfinger
 
     def url_from_template(template)
       xml   = Nokogiri::XML(template)
-      links = xml.xpath('//xmlns:Link[@rel="lrdd"]', xmlns: 'http://docs.oasis-open.org/ns/xri/xrd-1.0')
+      links = xml.xpath('//xmlns:Link[@rel="lrdd"]')
 
       raise Goldfinger::NotFoundError if links.empty?
 
