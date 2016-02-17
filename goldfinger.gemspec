@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email                 = 'eugen@zeonfederated.com'
   s.files                 = `git ls-files lib LICENSE README.md`.split($RS)
   s.homepage              = 'https://github.com/Gargron/goldfinger'
-  s.license               = 'MIT'
+  s.licenses              = ['MIT']
 
   s.add_dependency('http', '~> 1.0')
   s.add_dependency('addressable', '~> 2.4')

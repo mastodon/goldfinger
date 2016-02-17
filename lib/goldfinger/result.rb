@@ -21,6 +21,7 @@ module Goldfinger
     def parse
       case @mime_type
       when 'application/jrd+json'
+      when 'application/json'
         parse_json
       when 'application/xrd+xml'
         parse_xml
