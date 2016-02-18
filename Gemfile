@@ -1,6 +1,8 @@
 source "https://rubygems.org"
 
-gem 'pry', '>= 0.10.3'
+group :development, :test do
+  gem 'pry', '>= 0.10.3'
+end
 
 group :test do
   gem 'rspec', '>= 3.0'
