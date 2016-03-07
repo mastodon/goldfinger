@@ -13,7 +13,7 @@ module Goldfinger
       ssl = true
 
       begin
-        _, template   = perform_get(url(ssl))
+        _, template = perform_get(url(ssl))
       rescue HTTP::Error
         if ssl
           ssl = false
@@ -24,6 +24,9 @@ module Goldfinger
       end
 
       headers, body = perform_get(url_from_template(template))
+
+      raise Goldfinger::Error, "Invalid response mime type: #{headers.get(HTTP::Headers::CONTENT_TYPE).first}" unless ['application/jrd+json', 'application/xrd+xml'].include?(headers.get(HTTP::Headers::CONTENT_TYPE).first)
+
       Goldfinger::Result.new(headers, body)
     rescue HTTP::Error
       raise Goldfinger::NotFoundError
@@ -43,8 +46,7 @@ module Goldfinger
 
       raise Goldfinger::NotFoundError if links.empty?
 
-      url = Addressable::Template.new(links.first.attribute('template').value)
-      url.expand({ uri: @uri }).to_s
+      links.first.attribute('template').value.gsub('{uri}', @uri)
     end
 
     def domain

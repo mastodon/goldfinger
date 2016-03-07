@@ -2,8 +2,8 @@ describe Goldfinger::Client do
   context 'with HTTPS available' do
     describe '#finger' do
       before do
-        stub_request(:get, 'https://quitter.no/.well-known/host-meta').to_return(body: fixture('quitter.no_.well-known_host-meta'))
-        stub_request(:get, 'https://quitter.no/.well-known/webfinger?resource=acct:gargron@quitter.no').to_return(body: fixture('quitter.no_.well-known_webfinger.json'))
+        stub_request(:get, 'https://quitter.no/.well-known/host-meta').to_return(body: fixture('quitter.no_.well-known_host-meta'), headers: { content_type: 'application/xrd+xml' })
+        stub_request(:get, 'https://quitter.no/.well-known/webfinger?resource=acct:gargron@quitter.no').to_return(body: fixture('quitter.no_.well-known_webfinger.json'), headers: { content_type: 'application/jrd+json' })
       end
 
       subject { Goldfinger::Client.new('acct:gargron@quitter.no') }
@@ -18,8 +18,8 @@ describe Goldfinger::Client do
     describe '#finger' do
       before do
         stub_request(:get, 'https://quitter.no/.well-known/host-meta').to_raise(HTTP::Error)
-        stub_request(:get, 'http://quitter.no/.well-known/host-meta').to_return(body: fixture('quitter.no_.well-known_host-meta'))
-        stub_request(:get, 'https://quitter.no/.well-known/webfinger?resource=acct:gargron@quitter.no').to_return(body: fixture('quitter.no_.well-known_webfinger.json'))
+        stub_request(:get, 'http://quitter.no/.well-known/host-meta').to_return(body: fixture('quitter.no_.well-known_host-meta'), headers: { content_type: 'application/xrd+xml' })
+        stub_request(:get, 'https://quitter.no/.well-known/webfinger?resource=acct:gargron@quitter.no').to_return(body: fixture('quitter.no_.well-known_webfinger.json'), headers: { content_type: 'application/jrd+json' })
       end
 
       subject { Goldfinger::Client.new('acct:gargron@quitter.no') }
