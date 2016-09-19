@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    goldfinger (1.0.2)
+    goldfinger (1.0.3)
       addressable (~> 2.4)
       http (~> 1.0)
       nokogiri (~> 1.6)
@@ -10,14 +10,17 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.4.0)
-    coderay (1.1.0)
+    coderay (1.1.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
-    domain_name (0.5.20160128)
+    domain_name (0.5.20160826)
       unf (>= 0.0.5, < 1.0.0)
+    fuubar (2.2.0)
+      rspec-core (~> 3.0)
+      ruby-progressbar (~> 1.4)
     hashdiff (0.3.0)
-    http (1.0.2)
+    http (1.0.4)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
       http-form_data (~> 1.0.1)
@@ -27,35 +30,36 @@ GEM
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
     method_source (0.8.2)
-    mini_portile2 (2.0.0)
-    nokogiri (1.6.7.2)
-      mini_portile2 (~> 2.0.0.rc2)
-    nyan-cat-formatter (0.11)
-      rspec (>= 2.99, >= 2.14.2, < 4)
-    pry (0.10.3)
+    mini_portile2 (2.1.0)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
+    pkg-config (1.1.7)
+    pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    rake (10.5.0)
-    rspec (3.4.0)
-      rspec-core (~> 3.4.0)
-      rspec-expectations (~> 3.4.0)
-      rspec-mocks (~> 3.4.0)
-    rspec-core (3.4.2)
-      rspec-support (~> 3.4.0)
-    rspec-expectations (3.4.0)
+    rake (11.2.2)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.3)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-mocks (3.4.1)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-support (3.4.1)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
+    ruby-progressbar (1.8.1)
     safe_yaml (1.0.4)
     slop (3.6.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    webmock (1.22.6)
+    webmock (2.1.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -65,9 +69,12 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.3)
+  fuubar
   goldfinger!
-  nyan-cat-formatter
   pry (>= 0.10.3)
   rake
   rspec (>= 3.0)
   webmock
+
+BUNDLED WITH
+   1.13.0
