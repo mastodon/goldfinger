@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    goldfinger (1.0.4)
+    goldfinger (1.0.5)
       addressable (~> 2.4)
       http (~> 2.0)
       nokogiri (~> 1.6)

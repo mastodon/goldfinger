@@ -47,6 +47,8 @@ module Goldfinger
       raise Goldfinger::NotFoundError if links.empty?
 
       links.first.attribute('template').value.gsub('{uri}', @uri)
+    rescue Nokogiri::XML::XPath::SyntaxError
+      raise Goldfinger::Error, 'Bad XML'
     end
 
     def domain
