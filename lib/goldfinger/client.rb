@@ -13,7 +13,7 @@ module Goldfinger
       ssl = true
 
       begin
-        _, template = perform_get(url(ssl))
+        template = perform_get(url(ssl))
       rescue HTTP::Error
         if ssl
           ssl = false
@@ -23,11 +23,13 @@ module Goldfinger
         end
       end
 
-      headers, body = perform_get(url_from_template(template))
+      raise Goldfinger::NotFoundError, "No host-meta on the server" if template.code != 200
 
-      raise Goldfinger::Error, "Invalid response mime type: #{headers.get(HTTP::Headers::CONTENT_TYPE).first}" unless ['application/jrd+json', 'application/xrd+xml'].include?(headers.get(HTTP::Headers::CONTENT_TYPE).first)
+      response = perform_get(url_from_template(template.body))
 
-      Goldfinger::Result.new(headers, body)
+      raise Goldfinger::NotFoundError, "No such user on the server" if response.code != 200
+
+      Goldfinger::Result.new(response)
     rescue HTTP::Error
       raise Goldfinger::NotFoundError
     rescue OpenSSL::SSL::SSLError
@@ -48,7 +50,7 @@ module Goldfinger
 
       links.first.attribute('template').value.gsub('{uri}', @uri)
     rescue Nokogiri::XML::XPath::SyntaxError
-      raise Goldfinger::Error, 'Bad XML'
+      raise Goldfinger::Error, "Bad XML: #{template}"
     end
 
     def domain

@@ -6,8 +6,8 @@ describe Goldfinger::Request do
 
     subject { Goldfinger::Request.new(:get, 'http://example.com').perform }
 
-    it 'returns the body' do
-      expect(subject.last.to_s).to eql 'OK'
+    it 'returns a http response' do
+      expect(subject).to be_a HTTP::Response
     end
   end
 end

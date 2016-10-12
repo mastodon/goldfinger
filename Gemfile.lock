@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    goldfinger (1.0.5)
+    goldfinger (1.1.0)
       addressable (~> 2.4)
       http (~> 2.0)
       nokogiri (~> 1.6)
@@ -25,16 +25,14 @@ GEM
       http-cookie (~> 1.0)
       http-form_data (~> 1.0.1)
       http_parser.rb (~> 0.6.0)
-    http-cookie (1.0.2)
+    http-cookie (1.0.3)
       domain_name (~> 0.5)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
     method_source (0.8.2)
     mini_portile2 (2.1.0)
-    nokogiri (1.6.8)
+    nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
-    pkg-config (1.1.7)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)

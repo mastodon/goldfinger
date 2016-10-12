@@ -1,8 +1,16 @@
 module Goldfinger
   class Result
-    def initialize(headers, body)
-      @mime_type  = headers.get(HTTP::Headers::CONTENT_TYPE).first
-      @body       = body
+    MIME_TYPES = [
+      'application/jrd+json',
+      'application/json',
+      'application/xrd+xml',
+      'application/xml',
+      'text/xml'
+    ].freeze
+
+    def initialize(response)
+      @mime_type  = response.mime_type
+      @body       = response.body
       @subject    = nil
       @aliases    = []
       @links      = {}
@@ -62,8 +70,10 @@ module Goldfinger
       case @mime_type
       when 'application/jrd+json', 'application/json'
         parse_json
-      when 'application/xrd+xml'
+      when 'application/xrd+xml', 'application/xml', 'text/xml'
         parse_xml
+      else
+        raise Goldfinger::Error, "Invalid response mime type: #{@mime_type}"
       end
     end
 

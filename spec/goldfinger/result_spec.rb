@@ -1,6 +1,6 @@
 describe Goldfinger::Result do
   shared_examples 'a working finger result' do
-    subject { Goldfinger::Result.new(headers, body) }
+    subject { Goldfinger::Result.new(response) }
 
     describe '#links' do
       it 'returns a non-empty array' do
@@ -59,15 +59,21 @@ describe Goldfinger::Result do
   end
 
   context 'when the input mime type is application/xrd+xml' do
-    let(:headers) { h = HTTP::Headers.new; h.set(HTTP::Headers::CONTENT_TYPE, 'application/xrd+xml'); h }
-    let(:body) { File.read(fixture_path('quitter.no_.well-known_webfinger.xml')) }
+    before do
+      stub_request(:get, 'https://quitter.no/.well-known/webfinger?resource=acct:gargron@quitter.no').to_return(body: fixture('quitter.no_.well-known_webfinger.xml'), headers: { content_type: 'application/xrd+xml' })
+    end
+
+    let(:response) { HTTP.get('https://quitter.no/.well-known/webfinger?resource=acct:gargron@quitter.no') }
 
     it_behaves_like 'a working finger result'
   end
 
   context 'when the input mime type is application/jrd+json' do
-    let(:headers) { h = HTTP::Headers.new; h.set(HTTP::Headers::CONTENT_TYPE, 'application/jrd+json'); h }
-    let(:body) { File.read(fixture_path('quitter.no_.well-known_webfinger.json')) }
+    before do
+      stub_request(:get, 'https://quitter.no/.well-known/webfinger?resource=acct:gargron@quitter.no').to_return(body: fixture('quitter.no_.well-known_webfinger.json'), headers: { content_type: 'application/jrd+json' })
+    end
+
+    let(:response) { HTTP.get('https://quitter.no/.well-known/webfinger?resource=acct:gargron@quitter.no') }
 
     it_behaves_like 'a working finger result'
   end
