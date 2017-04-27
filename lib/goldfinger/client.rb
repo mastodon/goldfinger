@@ -13,33 +13,54 @@ module Goldfinger
       ssl = true
 
       begin
-        template = perform_get(url(ssl))
+        response = perform_get(standard_url(ssl))
+
+        return finger_from_template if response.code != 200
+
+        Goldfinger::Result.new(response)
       rescue HTTP::Error
-        if ssl
-          ssl = false
-          retry
-        else
-          raise Goldfinger::NotFoundError
-        end
+        raise Goldfinger::NotFoundError unless ssl
+
+        ssl = false
+        retry
       end
-
-      raise Goldfinger::NotFoundError, "No host-meta on the server" if template.code != 200
-
-      response = perform_get(url_from_template(template.body))
-
-      raise Goldfinger::NotFoundError, "No such user on the server" if response.code != 200
-
-      Goldfinger::Result.new(response)
     rescue HTTP::Error
       raise Goldfinger::NotFoundError
     rescue OpenSSL::SSL::SSLError
       raise Goldfinger::SSLError
+    rescue Addressable::URI::InvalidURIError
+      raise Goldfinger::NotFoundError, 'Invalid URI'
     end
 
     private
 
+    def finger_from_template
+      ssl = true
+
+      begin
+        template = perform_get(url(ssl))
+      rescue HTTP::Error
+        raise Goldfinger::NotFoundError unless ssl
+
+        ssl = false
+        retry
+      end
+
+      raise Goldfinger::NotFoundError, 'No host-meta on the server' if template.code != 200
+
+      response = perform_get(url_from_template(template.body))
+
+      raise Goldfinger::NotFoundError, 'No such user on the server' if response.code != 200
+
+      Goldfinger::Result.new(response)
+    end
+
     def url(ssl = true)
       "http#{'s' if ssl}://#{domain}/.well-known/host-meta"
+    end
+
+    def standard_url(ssl = true)
+      "http#{'s' if ssl}://#{domain}/.well-known/webfinger?resource=#{@uri}"
     end
 
     def url_from_template(template)

@@ -1,15 +1,18 @@
 module Goldfinger
   # @!attribute [r] href
   #   @return [String] The href the link points to
+  # @!attribute [r] template
+  #   @return [String] The template the link contains
   # @!attribute [r] type
   #   @return [String] The mime type of the link
   # @!attribute [r] rel
   #   @return [String] The relation descriptor of the link
   class Link
-    attr_reader :href, :type, :rel
+    attr_reader :href, :template, :type, :rel
 
     def initialize(a)
       @href       = a[:href]
+      @template   = a[:template]
       @type       = a[:type]
       @rel        = a[:rel]
       @titles     = a[:titles]
