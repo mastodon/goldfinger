@@ -39,7 +39,7 @@ module Goldfinger
 
       begin
         template = perform_get(url(ssl))
-      rescue HTTP::Error
+      rescue HTTP::Error, OpenSSL::SSL::SSLError
         raise Goldfinger::NotFoundError unless ssl
 
         ssl = false
