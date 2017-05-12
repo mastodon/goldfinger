@@ -18,7 +18,7 @@ module Goldfinger
         return finger_from_template if response.code != 200
 
         Goldfinger::Result.new(response)
-      rescue HTTP::Error
+      rescue HTTP::Error, OpenSSL::SSL::SSLError
         raise Goldfinger::NotFoundError unless ssl
 
         ssl = false
