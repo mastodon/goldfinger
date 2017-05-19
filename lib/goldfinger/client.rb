@@ -18,9 +18,12 @@ module Goldfinger
         return finger_from_template if response.code != 200
 
         Goldfinger::Result.new(response)
-      rescue HTTP::Error, OpenSSL::SSL::SSLError
-        raise Goldfinger::NotFoundError unless ssl
-
+      rescue HTTP::Error
+        raise Goldfinger::NotFoundError unless ssl and ENV['LOCAL_HTTPS'] != 'true'
+        ssl = false
+        retry
+      rescue OpenSSL::SSL::SSLError
+        raise Goldfinger::SSLError unless ssl and ENV['LOCAL_HTTPS'] != 'true'
         ssl = false
         retry
       end
@@ -39,9 +42,12 @@ module Goldfinger
 
       begin
         template = perform_get(url(ssl))
-      rescue HTTP::Error, OpenSSL::SSL::SSLError
-        raise Goldfinger::NotFoundError unless ssl
-
+      rescue HTTP::Error
+        raise Goldfinger::NotFoundError unless ssl and ENV['LOCAL_HTTPS'] != 'true'
+        ssl = false
+        retry
+      rescue OpenSSL::SSL::SSLError
+        raise Goldfinger::SSLError unless ssl and ENV['LOCAL_HTTPS'] != 'true'
         ssl = false
         retry
       end
