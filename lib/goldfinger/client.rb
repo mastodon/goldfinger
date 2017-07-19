@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'addressable'
 require 'nokogiri'
 
@@ -10,24 +12,11 @@ module Goldfinger
     end
 
     def finger
-      ssl = true
+      response = perform_get(standard_url)
 
-      begin
-        response = perform_get(standard_url(ssl))
+      return finger_from_template if response.code != 200
 
-        return finger_from_template if response.code != 200
-
-        Goldfinger::Result.new(response)
-      rescue HTTP::Error
-        raise Goldfinger::NotFoundError unless ssl
-
-        ssl = false
-        retry
-      end
-    rescue HTTP::Error
-      raise Goldfinger::NotFoundError
-    rescue OpenSSL::SSL::SSLError
-      raise Goldfinger::SSLError
+      Goldfinger::Result.new(response)
     rescue Addressable::URI::InvalidURIError
       raise Goldfinger::NotFoundError, 'Invalid URI'
     end
@@ -35,16 +24,7 @@ module Goldfinger
     private
 
     def finger_from_template
-      ssl = true
-
-      begin
-        template = perform_get(url(ssl))
-      rescue HTTP::Error
-        raise Goldfinger::NotFoundError unless ssl
-
-        ssl = false
-        retry
-      end
+      template = perform_get(url)
 
       raise Goldfinger::NotFoundError, 'No host-meta on the server' if template.code != 200
 
@@ -55,12 +35,12 @@ module Goldfinger
       Goldfinger::Result.new(response)
     end
 
-    def url(ssl = true)
-      "http#{'s' if ssl}://#{domain}/.well-known/host-meta"
+    def url
+      "https://#{domain}/.well-known/host-meta"
     end
 
-    def standard_url(ssl = true)
-      "http#{'s' if ssl}://#{domain}/.well-known/webfinger?resource=#{@uri}"
+    def standard_url
+      "https://#{domain}/.well-known/webfinger?resource=#{@uri}"
     end
 
     def url_from_template(template)

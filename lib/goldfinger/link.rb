@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Goldfinger
   # @!attribute [r] href
   #   @return [String] The href the link points to
