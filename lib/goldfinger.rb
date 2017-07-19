@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'goldfinger/request'
 require 'goldfinger/link'
 require 'goldfinger/result'
@@ -9,9 +11,6 @@ module Goldfinger
   end
 
   class NotFoundError < Error
-  end
-
-  class SSLError < Error
   end
 
   # Returns result for the Webfinger query

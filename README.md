@@ -1,4 +1,4 @@
-Goldfinger, a Webfinger client for Ruby
+Goldfinger, a WebFinger client for Ruby
 =======================================
 
 [![Gem Version](http://img.shields.io/gem/v/goldfinger.svg)][gem]
@@ -9,7 +9,10 @@ Goldfinger, a Webfinger client for Ruby
 [travis]: https://travis-ci.org/tootsuite/goldfinger
 [gemnasium]: https://gemnasium.com/tootsuite/goldfinger
 
-A Webfinger client for Ruby. Supports `application/xrd+xml` and `application/jrd+json` responses. Raises `Goldfinger::NotFoundError` on failure to fetch the Webfinger or XRD data, or `Goldfinger::SSLError` if something is wrong with the HTTPS connection it uses.
+A WebFinger client for Ruby. Supports `application/xrd+xml` and `application/jrd+json` responses. Raises `Goldfinger::NotFoundError` on failure to fetch the Webfinger or XRD data, can also raise `HTTP:Error` or `OpenSSL::SSL::SSLError` if something is wrong with the HTTPS connection it uses.
+
+- **Does not** fall back to HTTP if HTTPS is not available
+- **Does** check host-meta XRD, but *only* if the standard WebFinger path yielded no result
 
 ## Installation
 
@@ -30,4 +33,4 @@ A Webfinger client for Ruby. Supports `application/xrd+xml` and `application/jrd
 
 ## RFC support
 
-The official Webfinger RFC is [7033](https://tools.ietf.org/html/rfc7033).
+The official WebFinger RFC is [7033](https://tools.ietf.org/html/rfc7033).

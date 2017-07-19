@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Goldfinger
   module Utils
     def perform_get(path, options = {})

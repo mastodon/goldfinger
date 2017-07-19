@@ -1,12 +1,22 @@
+# frozen_string_literal: true
+
+require 'oj'
+
 module Goldfinger
+  # @!attribute [r] subject
+  #   @return [String] URI that identifies the entity that the JRD describes.
+  # @!attribute [r] aliases
+  #   @return [Array] Zero or more URI strings that identify the same entity as the "subject" URI.
   class Result
     MIME_TYPES = [
       'application/jrd+json',
       'application/json',
       'application/xrd+xml',
       'application/xml',
-      'text/xml'
+      'text/xml',
     ].freeze
+
+    attr_reader :subject, :aliases
 
     def initialize(response)
       @mime_type  = response.mime_type
@@ -17,20 +27,6 @@ module Goldfinger
       @properties = {}
 
       parse
-    end
-
-    # The value of the "subject" member is a URI that identifies the entity
-    # that the JRD describes.
-    # @return [String]
-    def subject
-      @subject
-    end
-
-    # The "aliases" array is an array of zero or more URI strings that
-    # identify the same entity as the "subject" URI.
-    # @return [Array]
-    def aliases
-      @aliases
     end
 
     # The "properties" object comprises zero or more name/value pairs whose
@@ -78,7 +74,7 @@ module Goldfinger
     end
 
     def parse_json
-      json = JSON.parse(@body)
+      json = Oj.load(@body, mode: :null)
 
       @subject    = json['subject']
       @aliases    = json['aliases'] || []
@@ -94,7 +90,7 @@ module Goldfinger
       xml = Nokogiri::XML(@body)
 
       @subject = xml.at_xpath('//xmlns:Subject').content
-      @aliases = xml.xpath('//xmlns:Alias').map { |a| a.content }
+      @aliases = xml.xpath('//xmlns:Alias').map(&:content)
 
       properties = xml.xpath('/xmlns:XRD/xmlns:Property')
       properties.each { |prop| @properties[prop.attribute('type').value] = prop.attribute('nil') ? nil : prop.content }
