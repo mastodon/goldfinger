@@ -74,7 +74,7 @@ module Goldfinger
     end
 
     def parse_json
-      json = Oj.load(@body, mode: :null)
+      json = Oj.load(@body.to_s, mode: :null)
 
       @subject    = json['subject']
       @aliases    = json['aliases'] || []
