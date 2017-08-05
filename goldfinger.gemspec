@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name                  = 'goldfinger'
-  s.version               = '2.0.0'
+  s.version               = '2.0.1'
   s.platform              = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.3.0'
   s.date                  = '2016-02-17'
