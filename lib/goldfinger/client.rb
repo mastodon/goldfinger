@@ -7,12 +7,14 @@ module Goldfinger
   class Client
     include Goldfinger::Utils
 
-    def initialize(uri)
+    def initialize(uri, opts = {}, ssl = true)
       @uri = uri
+      @scheme = ssl ? "https" : "http"
+      @opts = opts || {}
     end
 
     def finger
-      response = perform_get(standard_url)
+      response = perform_get(standard_url, @opts)
 
       return finger_from_template if response.code != 200
 
@@ -24,11 +26,11 @@ module Goldfinger
     private
 
     def finger_from_template
-      template = perform_get(url)
+      template = perform_get(url, @opts)
 
       raise Goldfinger::NotFoundError, 'No host-meta on the server' if template.code != 200
 
-      response = perform_get(url_from_template(template.body))
+      response = perform_get(url_from_template(template.body), @opts)
 
       raise Goldfinger::NotFoundError, 'No such user on the server' if response.code != 200
 
@@ -36,11 +38,11 @@ module Goldfinger
     end
 
     def url
-      "https://#{domain}/.well-known/host-meta"
+      "#{@scheme}://#{domain}/.well-known/host-meta"
     end
 
     def standard_url
-      "https://#{domain}/.well-known/webfinger?resource=#{@uri}"
+      "#{@scheme}://#{domain}/.well-known/webfinger?resource=#{@uri}"
     end
 
     def url_from_template(template)
