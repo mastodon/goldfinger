@@ -9,8 +9,9 @@ module Goldfinger
 
     def initialize(uri, opts = {})
       @uri = uri
-      @scheme = opts.fetch(:ssl, true) ? "https" : "http"
-      @opts = opts.delete(:ssl) || opts
+      @ssl = opts.delete(:ssl) { true }
+      @scheme = @ssl ? 'https' : 'http'
+      @opts = opts
     end
 
     def finger
