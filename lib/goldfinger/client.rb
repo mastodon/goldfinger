@@ -7,10 +7,10 @@ module Goldfinger
   class Client
     include Goldfinger::Utils
 
-    def initialize(uri, opts = {}, ssl = true)
+    def initialize(uri, opts = {})
       @uri = uri
-      @scheme = ssl ? "https" : "http"
-      @opts = opts || {}
+      @scheme = opts.fetch(:ssl, true) ? "https" : "http"
+      @opts = opts.delete(:ssl) || opts
     end
 
     def finger
