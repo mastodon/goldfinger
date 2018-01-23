@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name                  = 'goldfinger'
-  s.version               = '2.0.1'
+  s.version               = '2.1.0'
   s.platform              = Gem::Platform::RUBY
   s.required_ruby_version = '>= 2.3.0'
   s.date                  = '2016-02-17'
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage              = 'https://github.com/Gargron/goldfinger'
   s.licenses              = ['MIT']
 
-  s.add_dependency('http', '~> 2.2')
+  s.add_dependency('http', '~> 3.0')
   s.add_dependency('addressable', '~> 2.5')
   s.add_dependency('nokogiri', '~> 1.8')
   s.add_dependency('oj', '~> 3.0')
