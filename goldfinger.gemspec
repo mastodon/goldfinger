@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.homepage              = 'https://github.com/Gargron/goldfinger'
   s.licenses              = ['MIT']
 
-  s.add_dependency('http', '~> 3.0')
+  s.add_dependency('http', '~> 4.0')
   s.add_dependency('addressable', '~> 2.5')
   s.add_dependency('nokogiri', '~> 1.8')
   s.add_dependency('oj', '~> 3.0')
