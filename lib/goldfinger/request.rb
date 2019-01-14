@@ -18,7 +18,7 @@ module Goldfinger
     private
 
     def http_client
-      HTTP.timeout(:per_operation, write: 60, connect: 20, read: 60).follow
+      HTTP.timeout(write: 60, connect: 20, read: 60).follow
     end
   end
 end
