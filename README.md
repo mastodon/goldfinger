@@ -3,11 +3,9 @@ Goldfinger, a WebFinger client for Ruby
 
 [![Gem Version](http://img.shields.io/gem/v/goldfinger.svg)][gem]
 [![Build Status](http://img.shields.io/travis/tootsuite/goldfinger.svg)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/tootsuite/goldfinger.svg)][gemnasium]
 
 [gem]: https://rubygems.org/gems/goldfinger
 [travis]: https://travis-ci.org/tootsuite/goldfinger
-[gemnasium]: https://gemnasium.com/tootsuite/goldfinger
 
 A WebFinger client for Ruby. Supports `application/xrd+xml` and `application/jrd+json` responses. Raises `Goldfinger::NotFoundError` on failure to fetch the Webfinger or XRD data, can also raise `HTTP:Error` or `OpenSSL::SSL::SSLError` if something is wrong with the HTTPS connection it uses.
 
