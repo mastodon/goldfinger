@@ -43,7 +43,7 @@ module Goldfinger
     end
 
     def standard_url
-      "#{@scheme}://#{domain}/.well-known/webfinger?resource=#{@uri}"
+      "#{@scheme}://#{domain}/.well-known/webfinger?resource=#{CGI.escape @uri}"
     end
 
     def url_from_template(template)
