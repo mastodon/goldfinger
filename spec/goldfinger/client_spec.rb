@@ -49,4 +49,17 @@ describe Goldfinger::Client do
       end
     end
   end
+
+  describe '#finger' do
+    before do
+      stub_request(:get, 'https://ab.com/.well-known/webfinger?resource=acct:someone%40gmail.com@ab.com').to_return(status: 404)
+      stub_request(:get, 'https://ab.com/.well-known/webfinger?resource=acct:someone%2540gmail.com@ab.com').to_return(body: fixture('quitter.no_.well-known_webfinger.json'), headers: { content_type: 'application/jrd+json' })
+    end
+
+    subject { Goldfinger::Client.new('acct:someone%40gmail.com@ab.com') }
+
+    it 'should correctly handle %40 in acct uri' do
+      expect(subject.finger).to be_instance_of Goldfinger::Result
+    end
+  end
 end
